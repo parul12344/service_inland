@@ -1,0 +1,96 @@
+<section id="about" class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+      <div class="container">
+        <div class="section-header">
+          <h2>Booking</h2>
+      <div class="container">
+	    <div *ngIf="success" style="color:green"> 
+		     <b>{{booking_msg}}</b>
+		</div> 
+        <div class="form">
+          <form [formGroup]="bookingForm" (ngSubmit)="saveBookingData()">
+            <input type="hidden" name="t" id="token" value="" class="form-control">
+            <div class="form-row" *ngIf="idDirect">
+              <div class="form-group col-md-6">
+                  <input type="text" class="form-control" name="category" id="category" placeholder="Category" formControlName="category" readonly="readonly" value="{{category}}">
+              </div>
+                
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" name="sub_category" id="sub_category" placeholder="Sub Category" formControlName="sub_category" readonly="readonly" value="{{subCategory}}">
+              </div>  
+            </div>
+            <div class="form-row" *ngIf="!idDirect">
+              <div class="form-group col-md-6">
+                  <select class="form-control" name="category" formControlName="category" (change)="getSubCategory($event.target.value)" required [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                      <option value="">Please Select Category</option>
+                      <option *ngFor="let c of categoriesArr" [value]="c.name">{{c.name}}</option>
+                  </select>
+              </div>
+                
+              <div class="form-group col-md-6">
+                  <select class="form-control" name="sub_category" formControlName="sub_category" required [ngClass]="{ 'is-invalid': submitted && f.sub_category.errors }">
+                      <option value="">Please Select Sub-Category</option>
+                      <option *ngFor="let sc of subCategoriesArr" [value]="sc.name">{{sc.name}}</option>
+                  </select>  
+              </div>  
+            </div>  
+              
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Name" formControlName="name" required [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email" formControlName="email" required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                </div>
+              </div> 
+            </div>
+              
+            <div class="form-row"> 
+              <div class="form-group col-md-6">
+                  <input type="number" class="form-control" name="phone_num" id="phone_num" placeholder="Phone Number" formControlName="phone_num" maxlength="10" required [ngClass]="{ 'is-invalid': submitted && f.phone_num.errors }">  
+                  <div *ngIf="submitted && f.phone_num.errors" class="invalid-feedback">
+                        <div *ngIf="f.phone_num.errors.required">Mobile No is required</div>
+                        <div *ngIf="f.phone_num.errors.minlength">Mobile No must be 10 digit</div>
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" name="location" class="form-control" id="location" placeholder="Location" formControlName="location" required [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                    <div *ngIf="f.location.errors.required">Location is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="date" name="date" class="form-control" id="date" placeholder="Date" formControlName="date" required [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
+                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                    <div *ngIf="f.date.errors.required">Date is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="time" class="form-control" name="time" id="time" placeholder="Time" formControlName="time" required [ngClass]="{ 'is-invalid': submitted && f.time.errors }">
+                <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
+                    <div *ngIf="f.time.errors.required">Time is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="address" rows="5" data-rule="required" placeholder="Address" formControlName="address" required [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
+                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.errors.required">Address is required</div>
+                </div>
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-primary">Submit</button></div>
+          </form>
+        </div>
+
+      </div>
+        </div>
+   
+
+      </div>
+    </section>
